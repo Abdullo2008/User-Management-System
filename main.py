@@ -101,13 +101,23 @@ def main():
             username = input("Enter username to update: ")
             new_username = input('Enter new username to update (leave blank to keep current): ')
             new_password = input("Enter new password (leave blank to keep current): ")
-
+            if new_password:
+                if len(new_password) < 4:
+                    print('!!WARNING!!')
+                    print('-----------')
+                    print('Your password is too short')
+                    confirm_pass = input('Are you sure(y/N):').lower()
+                    if confirm_pass == 'y':
+                        pass
+                    else:
+                        continue
             new_email = input("Enter new email (leave blank to keep current): ")
             domains = ['.com', '.org', '.edu', '.net', '.int', '.gov']
-            if new_email[-4:] in domains:
-                user_manager.update_user(username, new_username, new_password, new_email)
-            else:
-                print('Enter valid email!!')
+            if new_email:
+                if new_email[-4:] in domains:
+                    user_manager.update_user(username, new_username, new_password, new_email)
+                else:
+                    print('Enter valid email!!')
         elif choice == '4':
             user_manager.list_users()
         elif choice == '5':
